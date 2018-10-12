@@ -40,7 +40,7 @@ where the fee is less than 20% of the facility's monthly maintenance cost?
 Return the facid, facility name, member cost, and monthly maintenance of the
 facilities in question. */
 
-select facid, name, membercost, monthlymaintenance 
+select facid, name, membercost, monthlymaintenance
        from ( 
                 select facid 
                  , name 
@@ -103,13 +103,13 @@ the guest user's ID is always 0. Include in your output the name of the
 facility, the name of the member formatted as a single column, and the cost.
 Order by descending cost, and do not use any subqueries. */
 
-select distinct f.name 
+select  f.name 
         , CONCAT(m.firstname, ' ',m.surname)  as membername 
         , case 
              when b.memid <> 0 then f.membercost * b.slots 
              else f.guestcost * b.slots 
             end as cost 
-             --   , b.starttime 
+            --  , b.starttime 
             from bookings b 
               join facilities f 
                   on b.facid = f.facid 
@@ -124,11 +124,11 @@ select distinct f.name
 
 
 /* Q9: This time, produce the same result as in Q8, but using a subquery. */
-    select * from 
+    select name, membername, cost from 
          ( select distinct f.name 
                   , CONCAT(m.firstname, ' ',m.surname)  as membername 
                   ,  f.membercost * b.slots as cost 
-                 -- , b.starttime 
+                  , b.starttime 
                from bookings b 
                 join facilities f 
                   on b.facid = f.facid 
@@ -140,7 +140,7 @@ select distinct f.name
             select distinct f.name 
                   , CONCAT(m.firstname, ' ',m.surname)  as membername 
                   ,  f.guestcost * b.slots as cost 
-                 -- , b.starttime 
+                  , b.starttime 
                from bookings b 
                 join facilities f 
                   on b.facid = f.facid 
