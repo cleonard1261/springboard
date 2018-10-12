@@ -75,11 +75,25 @@ from facilities;
 /* Q6: You'd like to get the first and last name of the last member(s)
 who signed up. Do not use the LIMIT clause for your solution. */
 
+select firstname
+        , surname
+from members
+where joindate = (select max(joindate) from members);
+
 
 /* Q7: How can you produce a list of all members who have used a tennis court?
 Include in your output the name of the court, and the name of the member
 formatted as a single column. Ensure no duplicate data, and order by
 the member name. */
+
+select distinct CONCAT(m.firstname, ' ',m.surname)  as membername 
+        , f.name 
+    from bookings b 
+     join facilities f 
+        on b.facid = f.facid 
+     join members m 
+        on b.memid = m.memid 
+  where b.facid in (0,1) order by 1 ;
 
 
 /* Q8: How can you produce a list of bookings on the day of 2012-09-14 which
@@ -89,10 +103,79 @@ the guest user's ID is always 0. Include in your output the name of the
 facility, the name of the member formatted as a single column, and the cost.
 Order by descending cost, and do not use any subqueries. */
 
+select distinct f.name 
+        , CONCAT(m.firstname, ' ',m.surname)  as membername 
+        , case 
+             when b.memid <> 0 then f.membercost * b.slots 
+             else f.guestcost * b.slots 
+            end as cost 
+             --   , b.starttime 
+            from bookings b 
+              join facilities f 
+                  on b.facid = f.facid 
+              join members m 
+                  on b.memid = m.memid 
+            where date(b.starttime) = '2012-09-14' 
+                and case 
+                      when b.memid <> 0 then f.membercost * b.slots 
+                          else f.guestcost * b.slots 
+                     end > 30 
+            order by 3 desc;
+
 
 /* Q9: This time, produce the same result as in Q8, but using a subquery. */
-
+    select * from 
+         ( select distinct f.name 
+                  , CONCAT(m.firstname, ' ',m.surname)  as membername 
+                  ,  f.membercost * b.slots as cost 
+                 -- , b.starttime 
+               from bookings b 
+                join facilities f 
+                  on b.facid = f.facid 
+                join members m 
+                  on b.memid = m.memid 
+                 where date(b.starttime) = '2012-09-14' and b.memid <> 0  
+                   and f.membercost * b.slots > 30 
+            union 
+            select distinct f.name 
+                  , CONCAT(m.firstname, ' ',m.surname)  as membername 
+                  ,  f.guestcost * b.slots as cost 
+                 -- , b.starttime 
+               from bookings b 
+                join facilities f 
+                  on b.facid = f.facid 
+                join members m 
+                  on b.memid = m.memid 
+                 where date(b.starttime) = '2012-09-14' and b.memid = 0  
+                   and f.guestcost * b.slots > 30 
+            ) sub 
+            order by 3 desc;
 
 /* Q10: Produce a list of facilities with a total revenue less than 1000.
 The output of facility name and total revenue, sorted by revenue. Remember
 that there's a different cost for guests and members! */
+
+     select * from 
+           ( 
+               select name, sum(revenue) total_revenue from 
+                 ( select  f.name 
+                          , f.membercost * b.slots as revenue 
+                          , b.starttime 
+                       from bookings b 
+                        join facilities f 
+                          on b.facid = f.facid 
+                         where  b.memid <> 0  
+                    union 
+                    select  f.name 
+                          , f.guestcost * b.slots as revenue 
+                          , b.starttime 
+                       from bookings b 
+                        join facilities f 
+                          on b.facid = f.facid 
+                         where b.memid = 0 
+                    ) sub 
+                group by name 
+             ) sub1 
+             where total_revenue < 1000 
+            order by 2;
+
