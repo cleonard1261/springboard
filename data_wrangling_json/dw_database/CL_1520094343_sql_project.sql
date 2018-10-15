@@ -178,4 +178,19 @@ that there's a different cost for guests and members! */
              ) sub1 
              where total_revenue < 1000 
             order by 2;
+            
+/* Alternate answer for Q10 */
+
+      select name, total_revenue from 
+             ( select  f.name 
+                  , sum(case 
+                    when b.memid <> 0 then  f.membercost * b.slots 
+                    else f.guestcost * b.slots end ) as total_revenue 
+               from bookings b 
+               join facilities f 
+                 on b.facid = f.facid 
+            group by f.name 
+            order by 2 
+            ) t1 
+            where total_revenue < 1000 
 
