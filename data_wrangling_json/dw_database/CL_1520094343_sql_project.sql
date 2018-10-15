@@ -190,7 +190,7 @@ that there's a different cost for guests and members! */
                join facilities f 
                  on b.facid = f.facid 
             group by f.name 
-            order by 2 
             ) t1 
-            where total_revenue < 1000 
+            where total_revenue < 1000
+            order by 2 
 
