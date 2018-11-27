@@ -1,0 +1,15 @@
+km_sum
+diff_sq
+plus_sq
+cafe_sum_min_total
+cafe_sum_max_total
+build_count_total
+raion_build_count_total
+big_church_count_total
+cafe_count_total
+church_count_total
+leisure_count_total
+market_count_total
+office_count_total
+sport_count_total
+trc_count_total

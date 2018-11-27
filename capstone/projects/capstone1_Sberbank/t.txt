@@ -1,0 +1,12 @@
+df_eda['cafe_sum_min_total'] = df_eda[cafe_sum_min_list].apply(lambda x: sum(x), axis=1)
+df_eda['cafe_sum_max_total'] = df_eda[cafe_sum_max_list].apply(lambda x: sum(x), axis=1)    
+df_eda['build_count_total'] = df_eda[build_count_list].apply(lambda x: sum(x), axis=1)
+df_eda['raion_build_count_total'] = df_eda[raion_build_list].apply(lambda x: sum(x), axis=1)
+df_eda['big_church_count_total'] = df_eda[big_church_count_list].apply(lambda x: sum(x), axis=1)
+df_eda['cafe_count_total'] = df_eda[cafe_count_list].apply(lambda x: sum(x), axis=1)
+df_eda['church_count_total'] = df_eda[church_count_list].apply(lambda x: sum(x), axis=1)
+df_eda['leisure_count_total'] = df_eda[leisure_count_list].apply(lambda x: sum(x), axis=1)
+df_eda['market_count_total'] = df_eda[market_count_list].apply(lambda x: sum(x), axis=1)
+df_eda['office_count_total'] = df_eda[office_count_list].apply(lambda x: sum(x), axis=1)
+df_eda['sport_count_total'] = df_eda[sport_count_list].apply(lambda x: sum(x), axis=1)
+df_eda['trc_count_total'] = df_

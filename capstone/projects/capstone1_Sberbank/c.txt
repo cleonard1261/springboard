@@ -1,0 +1,27 @@
+full_all: subarea population
+male_f:
+female_f: subarea population by gender
+young_: population younger than working age
+work_: working-age population
+ekder_: retirement-age population
+n_m_all:
+n_m_male:
+n_m_female: population between n and m years old
+build_count_: buildings in the subarea by construction type or year
+x_count_500: the number of x within 500m of the property
+x_part_500: the share of x within 500m of the property
+_sqm_: square meters
+cafe_count_d_price_p: number of cafes within d meters of the property that have an average 
+trc_: shopping malls
+prom_: industrial zones
+green_: green zones
+metro_: subway
+_avto_: distances by car
+mkad_: Moscow Circle Auto Road
+ttk_: Third Transport Ring
+sadovoe_: Garden Ring
+bulvar_ring_: Boulevard Ring
+kremlin_: City center
+zd_vokzaly_: Train station
+oil_chemistry_: Dirty industry
+ts_: Power plant
